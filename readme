@@ -1,3 +1,5 @@
 ###
+#for freestyle docker run below command first 
 sudo usermod -aG docker jenkins
 sudo chmod 666 /var/run/docker.sock
+docker cp /.index.html con_name:/usr/local/apache2/htdocs
