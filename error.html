@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('1111111') {
+            steps {
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/rakapatil/jenkins-docker-cicd.git'
+            }
+        }
+        stage('2222222') {
+            steps {
+                script{
+                    withDockerRegistry(credentialsId: 'dockercreds', toolName: 'Docker') {
+                        sh "docker build -t rakesh_httpd:v1 ."
+                        sh "docker tag rakesh_httpd:v1 rohinisbag/rakesh_httpd:v1"
+                        sh "docker push rohinisbag/rakesh_httpd:v1"
+                        sh "docker run -d --name rk-httpd -p 8022:80 rohinisbag/rakesh_httpd:v1"
+                        sh "docker ps -a"
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
